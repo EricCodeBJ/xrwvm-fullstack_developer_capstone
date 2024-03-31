@@ -8,10 +8,12 @@ const port = 3030;
 app.use(cors())
 app.use(require('body-parser').urlencoded({ extended: false }));
 
-const reviews_data = JSON.parse(fs.readFileSync("reviews.json", 'utf8'));
-const dealerships_data = JSON.parse(fs.readFileSync("dealerships.json", 'utf8'));
+const reviews_data = JSON.parse(fs.readFileSync("data/reviews.json", 'utf8'));
+const dealerships_data = JSON.parse(fs.readFileSync("data/dealerships.json", 'utf8'));
 
-mongoose.connect("mongodb://mongo_db:27017/",{'dbName':'dealershipsDB'});
+mongoose.connect("mongodb://mongo_db:27017/",{'dbName':'dealershipsDB'}).then(() => {
+    console.log('ddsdsds')
+})
 
 
 const Reviews = require('./review');
@@ -58,17 +60,32 @@ app.get('/fetchReviews/dealer/:id', async (req, res) => {
 
 // Express route to fetch all dealerships
 app.get('/fetchDealers', async (req, res) => {
-//Write your code here
+    try {
+        const dealerships = await Dealerships.find();
+        res.json(dealerships);
+    } catch (error) {
+        res.status(500).json({ error: 'Error fetching dealerships' });
+    }
 });
 
 // Express route to fetch Dealers by a particular state
 app.get('/fetchDealers/:state', async (req, res) => {
-//Write your code here
+    try {
+        const dealership = await Dealerships.find({state: req.params.state});
+        res.json(dealership);
+    } catch (error) {
+        res.status(500).json({ error: 'Error fetching dealership with state: ' + req.params.state});
+    }
 });
 
 // Express route to fetch dealer by a particular id
 app.get('/fetchDealer/:id', async (req, res) => {
-//Write your code here
+    try {
+        const dealership = await Dealerships.find({id: req.params.id});
+        res.json(dealership);
+    } catch (error) {
+        res.status(500).json({ error: 'Error fetching dealership with id: '+  req.params.id });
+    }
 });
 
 //Express route to insert review
