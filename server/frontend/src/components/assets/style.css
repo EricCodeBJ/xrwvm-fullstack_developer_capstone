@@ -123,3 +123,22 @@ img{
     text-align:center;
     box-shadow: 2px 2px 3px #999;  
 }
+
+
+.navbar-light .navbar-nav .nav-link {
+    color: white !important;
+}
+
+.navbar-light .navbar-nav .nav-link.active {
+    font-weight: bold !important;
+    border-bottom: 1px solid white;
+
+}
+
+.header-logo {
+    margin-right: 5%;
+    background: white;
+    padding: 5px 10px !important;
+    border-radius: 7px;
+    font-size: 1.51rem;
+}
