@@ -1,3 +1,4 @@
+/*jshint esversion: 8 */
 import PostReview from "./components/Dealers/PostReview"
 import Dealer from "./components/Dealers/Dealer"
 import Dealers from './components/Dealers/Dealers';
